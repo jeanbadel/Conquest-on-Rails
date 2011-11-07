@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:session][:email])
     
     if debug? && user
-      cookies[:persistence_token] = user.persistence_token
+      cookies.permanent[:persistence_token] = user.persistence_token
       redirect_to dashboard_path
     elsif user && user.authenticate(params[:session][:password])
       cookies.permanent[:persistence_token] = user.persistence_token
