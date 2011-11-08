@@ -7,10 +7,7 @@ class Ownership < ActiveRecord::Base
   
   
   def attack!(target_ownership, attackers_count)
-    attack = Attack.new(self, target_ownership, attackers_count)
-    attack.resolve!
-    
-    attack
+    Attack.new(self, target_ownership, attackers_count).resolve.perform!
   end
   
   

@@ -1,5 +1,5 @@
 class Attack
-  attr_reader :rounds, :winner
+  attr_reader :rounds, :winner, :attacker_losses, :defender_losses
   
   
   def initialize(attacker, target, attackers_count)
@@ -18,7 +18,7 @@ class Attack
   
   # If A attacks B with X units, the system will attack until
   # all the attackers or all the defenders are dead.
-  def resolve!
+  def resolve
     attackers_count = @attackers_count
     defenders_count = @target.units_count
     round_count     = 1
@@ -63,6 +63,31 @@ class Attack
     @defender_losses = @target.units_count - @remaining_defenders_count
     
     @winner = @remaining_attackers_count == 0 ? @target : @attacker
+    
+    self
+  end
+  
+  
+  # Update both ownerships units count and change
+  # the owner of the target if needed.
+  def perform!
+    Game.transaction do
+      if @winner == @attacker
+        @target.units_count    = @remaining_attackers_count
+        @target.participation  = @attacker.participation
+        @target.save!
+        
+        @attacker.units_count -= @attackers_count
+        @attacker.save!
+      else
+        @attacker.units_count -= @attacker_losses
+        @attacker.save!
+
+        @target.units_count -= @defender_losses
+        @target.save!
+        
+      end
+    end
     
     self
   end
