@@ -37,14 +37,14 @@ refactore the code.
 
 In order to contribute, remember to run the following commands:
 
-  $ bundle
-  $ cp config/database.yml.sample config/database.yml
+    $ bundle
+    $ cp config/database.yml.sample config/database.yml
 
 Edit this last file according to your environment.
 
-  $ rake db:create
-  $ rake db:migrate
-  $ rake populate:users
-  $ rake populate:territories
+    $ rake db:create
+    $ rake db:migrate
+    $ rake populate:users
+    $ rake populate:territories
 
 And there you go!
