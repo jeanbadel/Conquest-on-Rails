@@ -1,5 +1,5 @@
 .container#game.running
-  #map{ data: { me: current_participation.color } }
+  #map{ data: { me: current_participation.color, game_id: @game.id } }
     = render 'map', territories: @territories
     .credits Gerwin Broers
     

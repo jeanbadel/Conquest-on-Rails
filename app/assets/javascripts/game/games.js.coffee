@@ -2,7 +2,12 @@ window.juggernaut ||= new Juggernaut
 
 $ ->
   $("#map").each (index, map)->
-    $map = $(map)
+    $map    = $(map)
+    gameId  = $map.data("game_id")
+    channel = "games/#{gameId}"
+    
+    juggernaut.singleSubscribe channel, (data)->
+      handlers[data.eventType](data)
 
 
 showFloatingText = ($element, label, additionnalClass)->
@@ -13,3 +18,7 @@ showFloatingText = ($element, label, additionnalClass)->
     .animate(top: "-=30px", { duration: 2500, queue: false })
     .delay(1500)
     .fadeOut(1000, -> $(this).remove())
+
+
+handlers =
+  UNITS_LOSSES: (data)->
