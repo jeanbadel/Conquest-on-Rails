@@ -81,3 +81,17 @@
   }
 }
 
+
+.floating_text {
+  width:      30px;
+  text-align: center;
+  
+  &.malus {
+    color: red;
+  }
+  
+  &.bonus {
+    color: green;
+  }
+}
+
