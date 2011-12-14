@@ -20,5 +20,19 @@ showFloatingText = ($element, label, additionnalClass)->
     .fadeOut(1000, -> $(this).remove())
 
 
+changeUnitsCount = ($badge, newUnitsCount)->
+  $badge.data("units_count", newUnitsCount)
+  $badge.find("span").fadeOut 300, ->
+    $(this).text(newUnitsCount).fadeIn(300)
+
+
 handlers =
   UNITS_LOSSES: (data)->
+    for loss in data.losses when 0 < loss.unitsLoss
+      $badge        = $("#badge_territory_#{loss.territoryId}")
+      label         = "− #{loss.unitsLoss}"
+      unitsCount    = $badge.data("units_count")
+      newUnitsCount = unitsCount - loss.unitsLoss
+      
+      showFloatingText($badge, label, "malus")
+      changeUnitsCount($badge, newUnitsCount)

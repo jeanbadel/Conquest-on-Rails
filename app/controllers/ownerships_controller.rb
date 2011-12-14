@@ -2,9 +2,9 @@ class OwnershipsController < ApplicationController
   def attack
     attackers_count = params[:attackers_count].to_i
     
-    @game           = current_participation.game
-    @attacker       = current_participation.ownerships.find(params[:id])
-    @target         = @game.ownerships.find_by_territory_id(params[:target_id])
+    @game     = current_participation.game
+    @attacker = current_participation.ownerships.find(params[:id])
+    @target   = @game.ownerships.find_by_territory_id(params[:target_id])
     
     @attack = @attacker.attack!(@target, attackers_count)
     

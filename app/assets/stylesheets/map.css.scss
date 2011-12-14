@@ -83,15 +83,16 @@
 
 
 .floating_text {
-  width:      30px;
-  text-align: center;
+  width       : 30px;
+  text-align  : center;
+  font-weight : bold;
   
   &.malus {
-    color: red;
+    color : red;
   }
   
   &.bonus {
-    color: green;
+    color : green;
   }
 }
 
