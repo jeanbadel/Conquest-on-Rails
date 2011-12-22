@@ -6,7 +6,9 @@ $ ->
     gameId  = $map.data("game_id")
     channel = "games/#{gameId}"
 
+    # console.log "Subscribe to #{channel}"
     juggernaut.singleSubscribe channel, (data)->
+      console.log(data)
       handlers[data.eventType](data)
 
 
@@ -58,22 +60,50 @@ changeUnitsCountOnBadge = ($badge, unitsCount)->
     $span.text(unitsCount).fadeIn(300)
 
 
+removeUnitsFromRow = ($row, unitsLoss)->
+  $unitsCountCell = $row.find(".units_count")
+  unitsCount      = parseInt($unitsCountCell.text())
+
+  $unitsCountCell.text(unitsCount - unitsLoss)
+
+
+incrementTerritoryCount = ($row)->
+  $territoriesCountCell = $row.find(".territories_count")
+  territoriesCount      = parseInt($territoriesCountCell.text())
+
+  $territoriesCountCell.text(territoriesCount + 1)
+
+
+decrementTerritoryCount = ($row)->
+  $territoriesCountCell = $row.find(".territories_count")
+  territoriesCount      = parseInt($territoriesCountCell.text())
+
+  $territoriesCountCell.text(territoriesCount - 1)
+
+
+
 handlers =
   ATTACK_REPORT: (data)->
-    console.log(data)
-
     attacker = data.attacker
     target   = data.target
 
     $attackerBadge = $("#badge_territory_#{attacker.territoryId}")
+    $attackerRow   = $("tr[data-color=#{attacker.color}]")
+
     $targetBadge   = $("#badge_territory_#{target.territoryId}")
+    $targetRow     = $("tr[data-color=#{target.color}]")
 
     showFloatingLoss($attackerBadge, attacker.unitsLoss)
+    removeUnitsFromRow($attackerRow, attacker.unitsLoss)
+
     showFloatingLoss($targetBadge, target.unitsLoss)
+    removeUnitsFromRow($targetRow, target.unitsLoss)
 
     if data.attacker.winner
       removeUnitsFromBadge($attackerBadge, attacker.unitsCount)
       changeBadgeOwnership($targetBadge, attacker.remainingUnitsCount, attacker.color)
+      incrementTerritoryCount($attackerRow)
+      decrementTerritoryCount($targetRow)
 
     else
       removeUnitsFromBadge($attackerBadge, attacker.unitsLoss)

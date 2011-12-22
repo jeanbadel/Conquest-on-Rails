@@ -1,12 +1,11 @@
 class OwnershipsController < ApplicationController
   def attack
     attackers_count = params[:attackers_count].to_i
-
-    @game     = current_participation.game
-    @attacker = current_participation.ownerships.find(params[:id])
-    @target   = @game.ownerships.find_by_territory_id(params[:target_id])
-
-    @attack = @attacker.attack!(@target, attackers_count)
+    @game           = current_participation.game
+    @attacker       = current_participation.ownerships.find(params[:id])
+    @target         = @game.ownerships.find_by_territory_id(params[:target_id])
+    @target_color   = @target.participation.color
+    @attack         = @attacker.attack!(@target, attackers_count)
 
     publish_attack_report_to_players
 
@@ -35,7 +34,7 @@ class OwnershipsController < ApplicationController
       target: {
         unitsLoss:   @attack.defender_losses,
         territoryId: @target.territory_id,
-        color:       @target.participation.color
+        color:       @target_color
       }
     })
   end
