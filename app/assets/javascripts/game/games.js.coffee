@@ -5,7 +5,7 @@ $ ->
     $map    = $(map)
     gameId  = $map.data("game_id")
     channel = "games/#{gameId}"
-    
+
     juggernaut.singleSubscribe channel, (data)->
       handlers[data.eventType](data)
 
@@ -20,19 +20,61 @@ showFloatingText = ($element, label, additionnalClass)->
     .fadeOut(1000, -> $(this).remove())
 
 
-changeUnitsCount = ($badge, newUnitsCount)->
-  $badge.data("units_count", newUnitsCount)
-  $badge.find("span").fadeOut 300, ->
-    $(this).text(newUnitsCount).fadeIn(300)
+showFloatingLoss = ($badge, unitsLoss)->
+  return if unitsLoss == 0
+  showFloatingText($badge, "− #{unitsLoss}", "malus")
+
+
+removeUnitsFromBadge = ($badge, unitsLoss)->
+  return if unitsLoss == 0
+  unitsCount    = $badge.data("units_count")
+  newUnitsCount = unitsCount - unitsLoss
+
+  changeUnitsCountOnBadge($badge, newUnitsCount)
+
+
+changeBadgeOwnership = ($badge, unitsCount, newColor)->
+  oldColor = $badge.data("color")
+  mine     = newColor == $("#map").data("me")
+  $span    = $badge.find("span")
+
+  $badge.data("units_count", unitsCount)
+  $badge.data("color", newColor)
+  $span.fadeOut 300, ->
+    $badge
+      .removeClass(oldColor)
+      .removeClass("mine")
+      .addClass(mine && "mine")
+      .addClass(newColor)
+
+    $span.text(unitsCount).fadeIn(300)
+
+
+changeUnitsCountOnBadge = ($badge, unitsCount)->
+  $span = $badge.find("span")
+
+  $badge.data("units_count", unitsCount)
+  $span.fadeOut 300, ->
+    $span.text(unitsCount).fadeIn(300)
 
 
 handlers =
-  UNITS_LOSSES: (data)->
-    for loss in data.losses when 0 < loss.unitsLoss
-      $badge        = $("#badge_territory_#{loss.territoryId}")
-      label         = "− #{loss.unitsLoss}"
-      unitsCount    = $badge.data("units_count")
-      newUnitsCount = unitsCount - loss.unitsLoss
-      
-      showFloatingText($badge, label, "malus")
-      changeUnitsCount($badge, newUnitsCount)
+  ATTACK_REPORT: (data)->
+    console.log(data)
+
+    attacker = data.attacker
+    target   = data.target
+
+    $attackerBadge = $("#badge_territory_#{attacker.territoryId}")
+    $targetBadge   = $("#badge_territory_#{target.territoryId}")
+
+    showFloatingLoss($attackerBadge, attacker.unitsLoss)
+    showFloatingLoss($targetBadge, target.unitsLoss)
+
+    if data.attacker.winner
+      removeUnitsFromBadge($attackerBadge, attacker.unitsCount)
+      changeBadgeOwnership($targetBadge, attacker.remainingUnitsCount, attacker.color)
+
+    else
+      removeUnitsFromBadge($attackerBadge, attacker.unitsLoss)
+      removeUnitsFromBadge($targetBadge, target.unitsLoss)

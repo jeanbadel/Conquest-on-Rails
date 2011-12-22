@@ -1,5 +1,6 @@
 class Attack
-  attr_reader :rounds, :winner, :attacker_losses, :defender_losses
+  attr_reader :rounds, :winner, :attacker_losses, :defender_losses, 
+              :attackers_count, :remaining_attackers_count
   
   
   def initialize(attacker, target, attackers_count)

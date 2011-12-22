@@ -2,5 +2,6 @@
      class: classes_for_badge(ownership),
      data:  { neighbour_ids: ownership.territory.neighbour_ids,
               units_count:   ownership.units_count,
+              color:         ownership.participation.color,
               attack_path:   ownership_attack_path(@game, ownership) } }
   %span= ownership.units_count

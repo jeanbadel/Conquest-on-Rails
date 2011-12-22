@@ -18,9 +18,10 @@
           
       %tbody
         - @participations.each do |participation|
-          %tr{ class: participation.id == @game.active_participation.id && "current"}
+          %tr{ class: participation.id == @game.active_participation.id && "current",
+               data: { color: participation.color } }
             %td{ class: participation.color }
               %span
                 = participation.user.name
-            %td= participation.ownerships.size
-            %td= participation.ownerships.to_a.sum(&:units_count)
+            %td.territories_count= participation.ownerships.size
+            %td.units_count= participation.ownerships.to_a.sum(&:units_count)
