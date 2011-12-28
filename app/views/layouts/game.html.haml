@@ -3,9 +3,9 @@
   %head
     %title= @page_title || t('title')
     = stylesheet_link_tag "application"
-    = javascript_include_tag "application", "game"
+    = javascript_include_tag "application", "backbone_application"
     = csrf_meta_tags
-    
+
   %body
     = render "application/top_bar"
     = yield
