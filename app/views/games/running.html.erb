@@ -11,14 +11,15 @@
   window.territories = new Territories([
     <% @ownerships.each do |ownership| %>
       {
-        id:           <%= ownership.id %>,
-        territoryId:  <%= ownership.territory.id %>,
+        id:           <%= ownership.territory.id %>,
+        ownershipId:  <%= ownership.id %>,
         path:         "<%= ownership.territory.path %>",
         owner:        players.get(<%= ownership.participation_id %>),
-        neighbourIds: <%= ownership.territory.neighbour_ids.to_json %>
+        neighbourIds: <%= ownership.territory.neighbour_ids.to_json %>,
+        unitsCount:   <%= ownership.units_count %>
       },
     <% end %>
-  ]);
+  ]).buildNeighbours();
 </script>
 
 <div class="container">
