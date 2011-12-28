@@ -1,0 +1,27 @@
+<script type="text/javascript">
+  window.players = new Participants([
+    <% @participations.each do |player| %>
+      {
+        id:   <%= player.id %>,
+        name: "<%= escape_javascript(player.user.name) %>"
+      },
+    <% end %>
+  ]);
+
+  window.territories = new Territories([
+    <% @ownerships.each do |ownership| %>
+      {
+        id:           <%= ownership.territory.id %>,
+        ownershipId:  <%= ownership.id %>,
+        path:         "<%= ownership.territory.path %>",
+        owner:        players.get(<%= ownership.participation_id %>),
+        neighbourIds: <%= ownership.territory.neighbour_ids.to_json %>,
+        unitsCount:   <%= ownership.units_count %>
+      },
+    <% end %>
+  ]).buildNeighbours();
+</script>
+
+<div class="container">
+  <div id="application"></div>
+</div>
