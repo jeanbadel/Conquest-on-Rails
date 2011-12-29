@@ -1,63 +1,88 @@
 .badges {
   li {
-    background  : url('/assets/badges.png') no-repeat;
-    width       : 34px;
-    height      : 34px;
-    text-align  : center;
-    line-height : 34px;
-    font-size   : 12px;
-    
+    width:         32px;
+    height:        32px;
+    text-align:    center;
+    line-height:   34px;
+    font-size:     12px;
+    background:    black;
+    border-radius: 50%;
+    border:        2px solid #333;
+
+    -webkit-transition: background 1s;
+    -moz-transition:    background 1s;
+    -o-transition:      background 1s;
+    -ms-transition:     background 1s;
+
     span {
-      color           : #fff;
-      display         : block;
-      text-decoration : none;
+      color:           #fff;
+      display:         block;
+      text-decoration: none;
+      width:           24px;
+      height:          24px;
+      background:      #333;
+      border-radius:   50%;
+      margin:          4px;
+      line-height:     24px;
+
+      -webkit-transition: -webkit-transform 0.8s ease-in;
+      -moz-transition:    -moz-transform    0.8s ease-in;
+      -o-transition:      -o-transform      0.8s ease-in;
+      -ms-transition:     -ms-transform     0.8s ease-in;
+    }
+
+    span.animated {
+      -webkit-transform: rotate(720deg);
+      -moz-transform:    rotate(720deg);
+      -o-transform:      rotate(720deg);
+      -ms-transform:     rotate(720deg);
+
     }
   }
-  
-  
-  .blue {
-    background-position : -8px -8px;
-    color               : #67aaff;
+
+  [color=blue] {
+    background-color: #67aaff;
+    color           : #67aaff;
   }
-  
-  .green {
-    background-position : -58px -8px;
-    color               : #b8ff65;
+
+  [color=green] {
+    background-color: #b8ff65;
+    color:            #b8ff65;
   }
-  
-  .orange {
-    background-position : -108px -8px;
-    color               : #ffb459;
+
+  [color=orange] {
+    background-color: #ffb459;
+    color:            #ffb459;
   }
-  
-  .purple {
-    background-position : -158px -8px;
-    color               : #dc73ff;
+
+  [color=purple] {
+    background-color: #dc73ff;
+    color:            #dc73ff;
   }
-  
-  .yellow {
-    background-position : -208px -8px;
-    color               : #f9ff7c;
+
+  [color=yellow] {
+    background-color: #f9ff7c;
+    color:            #f9ff7c;
   }
-  
-  .nobody {
-    background-position : -258px -8px;
+
+  [color=nobody] {
+    background-color: gray;
   }
 }
 
 #map {
   #badges {
-    position : repeat;
-    
+    position: repeat;
+
     li {
-      position : absolute;
+      position: absolute;
     }
   }
 }
 
 <% Territory.all.each do |territory| %>
-  #badge_territory_<%= territory.id %> {
-    top  : <%= territory.badge_offset_y - 34/2 %>px;
-    left : <%= territory.badge_offset_x - 34/2 %>px;
-  }
+#badge_<%= territory.id %> {
+  top:  <%= territory.badge_offset_y - 34/2 %>px;
+  left: <%= territory.badge_offset_x - 34/2 %>px;
+}
 <% end %>

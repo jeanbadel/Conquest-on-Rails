@@ -1,20 +1,22 @@
 <script type="text/javascript">
-  window.players = new Participants([
-    <% @participations.each do |player| %>
+  window.seeds = {}
+  window.seeds.players = new Participants([
+    <% @participations.each do |participation| %>
       {
-        id:   <%= player.id %>,
-        name: "<%= escape_javascript(player.user.name) %>"
+        id:    <%= participation.id %>,
+        name:  <%= raw(participation.user.name.to_json) %>,
+        color: <%= raw(participation.color.to_json) %>
       },
     <% end %>
   ]);
 
-  window.territories = new Territories([
+  window.seeds.territories = new Territories([
     <% @ownerships.each do |ownership| %>
       {
         id:           <%= ownership.territory.id %>,
         ownershipId:  <%= ownership.id %>,
-        path:         "<%= ownership.territory.path %>",
-        owner:        players.get(<%= ownership.participation_id %>),
+        path:         <%= raw(ownership.territory.path.to_json) %>,
+        owner:        window.seeds.players.get(<%= ownership.participation_id %>),
         neighbourIds: <%= ownership.territory.neighbour_ids.to_json %>,
         unitsCount:   <%= ownership.units_count %>
       },

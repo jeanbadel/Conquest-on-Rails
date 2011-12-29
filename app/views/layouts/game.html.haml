@@ -9,3 +9,8 @@
   %body
     = render "application/top_bar"
     = yield
+
+    %script#map-view-template{ type: "text/x-handlebars-template" }
+      = image_tag "map.png", usemap: "#territories", alt: ""
+      %map{ name: "territories" }
+      %ul.badges
