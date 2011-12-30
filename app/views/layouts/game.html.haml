@@ -14,3 +14,19 @@
       = image_tag "map.png", usemap: "#territories", alt: ""
       %map{ name: "territories" }
       %ul.badges
+
+
+    %script#summary-view-template{ type: "text/x-handlebars-template" }
+      %thead
+        %tr
+          %th= t('game.player_name')
+          %th= t('game.territories_count')
+          %th= t('game.units_count')
+      %tbody
+
+
+    %script#summary-row-view-template{ type: "text/x-handlebars-template" }
+      %td{ color: "{{color}}" }
+        %span {{name}}
+      %td.territories_count {{territoriesCount}}
+      %td.units_count {{unitsCount}}

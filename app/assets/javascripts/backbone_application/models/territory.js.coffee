@@ -5,3 +5,11 @@ class window.Territory extends Backbone.RelationalModel
     relatedModel:   "Territory",
     collectionType: "Territories"
   ]
+
+
+  initialize: ->
+    @bind("change:unitsCount", @handleUnitsCountChange, @)
+
+
+  handleUnitsCountChange: ->
+    @get("owner").trigger("territories:units_count_changed")
