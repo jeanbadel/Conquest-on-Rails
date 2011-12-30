@@ -4,32 +4,35 @@ fr:
   orange: Orange
   purple: Violet
   yellow: Jaune
-  
+
   title:     Conquest on Rails, un jeu de conquête par navigateur
   home:      Accueil
   rules:     Manuel du joueur
   dashboard: Panneau de contrôle
-  
+
   debug:
     sign_in_as: Connexion en tant que…
-  
+
   game:
-    start_new_game:   Commencer une partie
-    looking_for_game: Recherche…
-    label:            Partie %{name}
-    search:           Rechercher des adversaires
-    new_game:         Nouvelle partie
-    resume:           Reprendre la partie
-    waiting:          En attente de joueurs…
-    start_playing:    Commencer à jouer
-    
+    start_new_game:    Commencer une partie
+    looking_for_game:  Recherche…
+    label:             Partie %{name}
+    search:            Rechercher des adversaires
+    new_game:          Nouvelle partie
+    resume:            Reprendre la partie
+    waiting:           En attente de joueurs…
+    start_playing:     Commencer à jouer
+    territories_count: Nombre de territoires
+    units_count:       Nombre d'unités
+    player_name:       Joueur
+
   user:
     sign_up:  Inscription
     sign_in:  Connexion
     sign_out: Déconnexion
-    
+
     sign_in_fail: Le compte spécifié n'existe pas.
-    
+
   activerecord:
     errors:
       models:
@@ -47,7 +50,7 @@ fr:
               confirmation: La confirmation ne correspond pas !
             password_confirmation:
               blank: Le mot de passe doit être confirmé !
-              
+
   date:
     formats:
       default: "%d/%m/%Y"
