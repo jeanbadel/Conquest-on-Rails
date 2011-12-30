@@ -1,6 +1,6 @@
 <script type="text/javascript">
   window.seeds = {}
-  window.seeds.players = new Participants([
+  window.seeds.players = new Players([
     <% @participations.each do |participation| %>
       {
         id:    <%= participation.id %>,
@@ -22,6 +22,8 @@
       },
     <% end %>
   ]).buildNeighbours();
+
+  window.seeds.currentPlayer = window.seeds.players.get(<%= @game.active_participation_id %>);
 </script>
 
 <div class="container">

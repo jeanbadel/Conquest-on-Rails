@@ -1,9 +1,10 @@
 class window.SummaryRowView extends Backbone.View
-  model:   Participant
+  model:   Player
   tagName: "tr"
 
   initialize: ->
-    @model.bind("change", @render, @)
+    @model.bind("change",         @render, @)
+    @model.bind("change:current", @render, @)
 
 
   render: ->
@@ -17,6 +18,8 @@ class window.SummaryRowView extends Backbone.View
     template = Handlebars.compile(source)
     content  = template(viewData)
 
-    $(@el).html(content)
+    $(@el)
+      .html(content)
+      .addClass("current")
 
     @

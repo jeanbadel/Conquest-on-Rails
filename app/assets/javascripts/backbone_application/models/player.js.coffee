@@ -1,4 +1,4 @@
-class window.Participant extends Backbone.RelationalModel
+class window.Player extends Backbone.RelationalModel
   relations: [
     type:           Backbone.HasMany
     key:            "territories"
