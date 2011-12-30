@@ -20,6 +20,7 @@ class window.SummaryRowView extends Backbone.View
 
     $(@el)
       .html(content)
-      .addClass("current")
+      .removeClass("current")
+      .addClass(@model.get("active") && "current")
 
     @

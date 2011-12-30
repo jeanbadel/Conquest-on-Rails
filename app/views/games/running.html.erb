@@ -3,9 +3,10 @@
   window.seeds.players = new Players([
     <% @participations.each do |participation| %>
       {
-        id:    <%= participation.id %>,
-        name:  <%= raw(participation.user.name.to_json) %>,
-        color: <%= raw(participation.color.to_json) %>
+        id:     <%= participation.id %>,
+        name:   <%= raw(participation.user.name.to_json) %>,
+        color:  <%= raw(participation.color.to_json) %>,
+        active: <%= @game.active_participation_id == participation.id ? true : false %>
       },
     <% end %>
   ]);
@@ -22,8 +23,6 @@
       },
     <% end %>
   ]).buildNeighbours();
-
-  window.seeds.currentPlayer = window.seeds.players.get(<%= @game.active_participation_id %>);
 </script>
 
 <div class="container">
