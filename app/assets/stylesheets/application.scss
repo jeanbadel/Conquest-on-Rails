@@ -27,12 +27,16 @@ p {
   .red {
     background: red;
   }
-  
+
   .blue {
     background: blue;
   }
-  
+
   .orange {
     background: orange;
   }
+}
+
+.translation_missing {
+  color: red !important;
 }
