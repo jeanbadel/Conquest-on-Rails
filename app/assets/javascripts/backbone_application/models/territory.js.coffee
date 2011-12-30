@@ -1,4 +1,4 @@
-class window.Territory extends Backbone.RelationalModel
+window.Territory = Backbone.RelationalModel.extend
   relations: [
     type:           Backbone.HasMany
     key:            "neighbours"

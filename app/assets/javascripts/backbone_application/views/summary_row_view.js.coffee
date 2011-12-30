@@ -1,4 +1,4 @@
-class window.SummaryRowView extends Backbone.View
+window.SummaryRowView = Backbone.View.extend
   model:   Player
   tagName: "tr"
 

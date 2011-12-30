@@ -1,4 +1,4 @@
-class window.SummaryView extends Backbone.View
+window.SummaryView = Backbone.View.extend
   model:     Game
   tagName:   "table"
   id:        "players"

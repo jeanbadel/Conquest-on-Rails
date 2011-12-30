@@ -1,4 +1,4 @@
-class window.Territories extends Backbone.Collection
+window.Territories = Backbone.Collection.extend
   model: Territory
 
   buildNeighbours: ->

@@ -1,4 +1,4 @@
-class window.MapView extends Backbone.View
+window.MapView = Backbone.View.extend
   id:    "map"
   model: Game
 

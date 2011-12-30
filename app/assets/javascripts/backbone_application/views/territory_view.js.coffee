@@ -1,4 +1,4 @@
-class window.TerritoryView extends Backbone.View
+window.TerritoryView = Backbone.View.extend
   model:   Territory
   tagName: "area"
 

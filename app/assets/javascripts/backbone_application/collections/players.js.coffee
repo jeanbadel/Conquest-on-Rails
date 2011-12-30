@@ -1,2 +1,2 @@
-class window.Players extends Backbone.Collection
+window.Players = Backbone.Collection.extend
   model: Player

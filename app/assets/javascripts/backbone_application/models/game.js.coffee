@@ -1,4 +1,4 @@
-class window.Game extends Backbone.Model
+window.Game = Backbone.Model.extend
   initialize: ->
     @bind("change:currentPlayer",     @currentPlayerChanged,     @)
     @bind("change:selectedTerritory", @selectedTerritoryChanged, @)
