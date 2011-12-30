@@ -3,8 +3,10 @@ class window.SummaryRowView extends Backbone.View
   tagName: "tr"
 
   initialize: ->
-    @model.bind("change",         @render, @)
-    @model.bind("change:current", @render, @)
+    @model.bind("change:active",             @activityChanged,         @)
+    @model.bind("change:deployedUnitsCount", @unitsCountChanged,       @)
+    @model.bind("add:territories",           @territoriesCountChanged, @)
+    @model.bind("remove:territories",        @territoriesCountChanged, @)
 
 
   render: ->
@@ -20,7 +22,30 @@ class window.SummaryRowView extends Backbone.View
 
     $(@el)
       .html(content)
-      .removeClass("current")
       .addClass(@model.get("active") && "current")
 
     @
+
+
+  activityChanged: ->
+    $(@el)
+      .removeClass("current")
+      .addClass(@model.get("active") && "current")
+
+
+  unitsCountChanged: ->
+    unitsCount = @model.get("deployedUnitsCount")
+    $td        = @$(".units_count").toggleClass("animated")
+    $span      = $td.find("span")
+
+    change = -> $span.text(unitsCount)
+    setTimeout(change, 200)
+
+
+  territoriesCountChanged: ->
+    territoriesCount = @model.get("territories").length
+    $td              = @$(".territories_count").toggleClass("animated")
+    $span            = $td.find("span")
+
+    change = -> $span.text(territoriesCount)
+    setTimeout(change, 200)

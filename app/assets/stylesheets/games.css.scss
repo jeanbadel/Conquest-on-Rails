@@ -5,9 +5,44 @@
 #players {
   margin-top : 20px;
 
+  thead {
+    th {
+      width: 35%;
+    }
+
+    th.player_name {
+      width: 30%;
+    }
+  }
+
   tr.current {
     td {
       font-weight: bold;
+    }
+  }
+
+  td.count {
+    position: relative;
+    height: 18px;
+
+    span {
+      position: absolute;
+      display: block;
+      -webkit-transition: -webkit-transform 0.4s ease-in;
+      -moz-transition:    -moz-transform    0.4s ease-in;
+      -o-transition:      -o-transform      0.4s ease-in;
+      -ms-transition:     -ms-transform     0.4s ease-in;
+      transition:         transform         0.4s ease-in;
+    }
+  }
+
+  td.animated {
+    span {
+      -webkit-transform: rotate(360deg);
+      -moz-transform:    rotate(360deg);
+      -o-transform:      rotate(360deg);
+      -ms-transform:     rotate(360deg);
+      transform:         rotate(360deg);
     }
   }
 

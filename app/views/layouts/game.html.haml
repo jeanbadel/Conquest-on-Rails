@@ -19,7 +19,7 @@
     %script#summary-view-template{ type: "text/x-handlebars-template" }
       %thead
         %tr
-          %th= t('game.player_name')
+          %th.player_name= t('game.player_name')
           %th= t('game.territories_count')
           %th= t('game.units_count')
       %tbody
@@ -28,5 +28,7 @@
     %script#summary-row-view-template{ type: "text/x-handlebars-template" }
       %td{ color: "{{color}}" }
         %span {{name}}
-      %td.territories_count {{territoriesCount}}
-      %td.units_count {{unitsCount}}
+      %td.count.territories_count
+        %span {{territoriesCount}}
+      %td.count.units_count
+        %span {{unitsCount}}
