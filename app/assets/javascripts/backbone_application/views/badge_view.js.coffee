@@ -2,9 +2,15 @@ class window.BadgeView extends Backbone.View
   model:     Territory
   tagName:   "li"
 
+  events:
+    "click" : "handleClick"
+
+
   initialize: ->
     @model.bind("change:unitsCount", @changeUnitsCount, @)
-    @model.bind("change:owner",      @changeOwner, @)
+    @model.bind("change:owner",      @changeOwner,      @)
+    @model.bind("fade",              @fade,             @)
+    @model.bind("unfade",            @unfade,           @)
 
 
   render: ->
@@ -30,3 +36,31 @@ class window.BadgeView extends Backbone.View
   changeOwner: ->
     $(@el).attr(color: @model.get("owner").get("color"))
     @
+
+
+  handleClick: ->
+    clickedTerritory  = @model
+    selectedTerritory = window.game.get("selectedTerritory")
+
+
+    if selectedTerritory
+      if clickedTerritory is selectedTerritory
+        window.game.unselectTerritory(clickedTerritory)
+
+      else
+        if selectedTerritory.get("neighbours").include(clickedTerritory)
+          window.game.interactWithTerritory(clickedTerritory)
+        else
+          window.game.selectTerritory(clickedTerritory)
+
+    else
+      if clickedTerritory.get("owner") is window.me and window.me.get("active")
+        window.game.selectTerritory(clickedTerritory)
+
+
+  fade: ->
+    $(@el).addClass("faded")
+
+
+  unfade: ->
+    $(@el).removeClass("faded")

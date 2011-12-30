@@ -23,6 +23,8 @@
       },
     <% end %>
   ]).buildNeighbours();
+
+  window.me = window.seeds.players.get(<%= @current_participation.id %>);
 </script>
 
 <div class="container">
