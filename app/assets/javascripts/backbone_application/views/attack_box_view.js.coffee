@@ -54,6 +54,4 @@ window.AttackBoxView = Backbone.View.extend
 
 
   doneChanged: ->
-    if @model.get("done")
-      window.game.unselectTerritory()
-      @destroy()
+    @destroy() if @model.get("done")
