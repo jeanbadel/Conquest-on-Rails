@@ -32,3 +32,10 @@
         %span {{territoriesCount}}
       %td.count.units_count
         %span {{unitsCount}}
+
+
+    %script#attack-box-view-template{ type: "text/x-handlebars-template" }
+      .spinner
+        %a.minus −
+        %span.counter {{attackersCount}}
+        %a.plus +

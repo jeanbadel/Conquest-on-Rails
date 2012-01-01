@@ -1,5 +1,6 @@
 <script type="text/javascript">
   window.seeds = {}
+  window.seeds.gameId = <%= @game.id %>;
   window.seeds.players = new Players([
     <% @participations.each do |participation| %>
       {

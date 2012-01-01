@@ -1,7 +1,9 @@
 window.Game = Backbone.Model.extend
   initialize: ->
     @bind("change:currentPlayer",     @currentPlayerChanged,     @)
+    @bind("change:selectedTerritory", @abortOngoingAttack,       @)
     @bind("change:selectedTerritory", @selectedTerritoryChanged, @)
+    @bind("change:targetedTerritory", @targetedTerritoryChanged, @)
 
 
   currentPlayerChanged: ->
@@ -9,33 +11,52 @@ window.Game = Backbone.Model.extend
     @get("currentPlayer").set(active: true)
 
 
-
   selectTerritory: (territory)->
     @set(selectedTerritory: territory)
 
 
-  unselectTerritory: (territory)->
+  unselectTerritory: ->
     @set(selectedTerritory: null)
 
 
-  interactWithTerritory: (territory)->
-    alert("Interact with territory #{territory.get("id")}")
+  targetTerritory: (territory)->
+    @abortOngoingAttack()
+    attack = new Attack(attacker: @get("selectedTerritory"), target: territory)
+    @set(targetedTerritory: territory, ongoingAttack: attack)
+
+
+  untargetTerritory: ->
+    @set(targetedTerritory: null)
+
+
+  attackTerritory: (territory)->
+    @get("ongoingAttack").execute()
 
 
   selectedTerritoryChanged: ->
-    territories           = @get("territories")
-    selectedTerritory     = @get("selectedTerritory")
+    myTerritories     = window.me.get("territories")
+    selectedTerritory = @get("selectedTerritory")
 
     if selectedTerritory
-      neighbours = selectedTerritory.get("neighbours")
+      neighbours            = selectedTerritory.get("neighbours")
+      targetableTerritories = neighbours.without(myTerritories.models)
 
-      # Fade all territories but the selected one and its neighbours.
-      territories.each (territory)->
-        if territory is selectedTerritory or neighbours.include(territory)
-          territory.trigger("unfade")
-        else
-          territory.trigger("fade")
+      @set(targetableTerritories: new Territories(targetableTerritories))
 
     else
-      # No selected territory anymore.
-      territories.invoke("trigger", "unfade")
+      @set(targetableTerritories: new Territories([]))
+
+
+  targetedTerritoryChanged: ->
+    targetedTerritory = @get("targetedTerritory")
+
+    @get("targetableTerritories").each (territory)->
+      if territory is targetedTerritory
+        territory.trigger("unfade")
+      else
+        territory.trigger("fade")
+
+
+  abortOngoingAttack: ->
+    @get("ongoingAttack") && @get("ongoingAttack").destroy()
+    @set(ongoingAttack: null)

@@ -7,8 +7,8 @@ window.BadgeView = Backbone.View.extend
 
 
   initialize: ->
-    @model.bind("change:unitsCount", @changeUnitsCount, @)
-    @model.bind("change:owner",      @changeOwner,      @)
+    @model.bind("change:unitsCount", @unitsCountChanged, @)
+    @model.bind("change:owner",      @ownerChanged,      @)
     @model.bind("fade",              @fade,             @)
     @model.bind("unfade",            @unfade,           @)
 
@@ -23,7 +23,7 @@ window.BadgeView = Backbone.View.extend
     @
 
 
-  changeUnitsCount: ->
+  unitsCountChanged: ->
     unitsCount = @model.get("unitsCount")
     $span      = @$("span").toggleClass("animated")
     change     = -> $span.text(unitsCount)
@@ -31,28 +31,33 @@ window.BadgeView = Backbone.View.extend
     setTimeout(change, 400)
 
 
-  changeOwner: ->
+  ownerChanged: ->
     $(@el).attr(color: @model.get("owner").get("color"))
 
 
   handleClick: ->
-    clickedTerritory  = @model
-    selectedTerritory = window.game.get("selectedTerritory")
+    clickedTerritory      = @model
+    selectedTerritory     = window.game.get("selectedTerritory")
+    targetableTerritories = window.game.get("targetableTerritories")
+    targetedTerritory     = window.game.get("targetedTerritory")
 
-
-    if selectedTerritory
-      if clickedTerritory is selectedTerritory
-        window.game.unselectTerritory(clickedTerritory)
-
-      else
-        if selectedTerritory.get("neighbours").include(clickedTerritory)
-          window.game.interactWithTerritory(clickedTerritory)
-        else
-          window.game.selectTerritory(clickedTerritory)
-
-    else
+    if not selectedTerritory
       if clickedTerritory.get("owner") is window.me and window.me.get("active")
         window.game.selectTerritory(clickedTerritory)
+
+    else
+      if clickedTerritory is selectedTerritory
+        window.game.unselectTerritory()
+
+      else if clickedTerritory is targetedTerritory
+        window.game.attackTerritory(clickedTerritory)
+
+      else if targetableTerritories.include(clickedTerritory)
+        window.game.targetTerritory(clickedTerritory)
+
+      else
+        if clickedTerritory.get("owner") is window.me and window.me.get("active")
+          window.game.selectTerritory(clickedTerritory)
 
 
   fade: ->
@@ -60,4 +65,4 @@ window.BadgeView = Backbone.View.extend
 
 
   unfade: ->
-    $(@el).removeClass("faded")
+    $(@el).removeClass("faded half-faded")

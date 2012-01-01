@@ -8,8 +8,8 @@ window.Territory = Backbone.RelationalModel.extend
 
 
   initialize: ->
-    @bind("change:unitsCount", @handleUnitsCountChange, @)
+    @bind("change:unitsCount", @unitsCountChanged, @)
 
 
-  handleUnitsCountChange: ->
+  unitsCountChanged: ->
     @get("owner").trigger("territories:units_count_changed")
