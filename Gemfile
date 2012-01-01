@@ -13,7 +13,7 @@ gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 gem "squeel"
 
 # Define default values for models.
-gem "default_value_for" 
+gem "default_value_for"
 
 # Get only few properties from models without instantiate them.
 gem "valium"
@@ -27,8 +27,8 @@ gem "resque-jobs-per-fork"
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Push server.
-# gem "juggernaut"
-gem "juggernaut", :git => "git://github.com/Sephi-Chan/juggernaut.git"
+gem "juggernaut"
+# gem "juggernaut", :git => "git://github.com/Sephi-Chan/juggernaut.git"
 
 # Build JSON views.
 gem 'rabl'

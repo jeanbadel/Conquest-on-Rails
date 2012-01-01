@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/Sephi-Chan/juggernaut.git
-  revision: 9825ac0c5f81010dce3d07635e1177c479be1a2d
-  specs:
-    juggernaut (2.0.1)
-      redis
-
-GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 5ea7d400146eb217b28fb5b0682c6ce27bf64c8c
   specs:
@@ -96,6 +89,8 @@ GEM
       thor (~> 0.14)
     json (1.6.4)
     json_pure (1.6.1)
+    juggernaut (2.1.0)
+      redis
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -225,7 +220,7 @@ DEPENDENCIES
   factory_girl_rails
   haml
   jquery-rails
-  juggernaut!
+  juggernaut
   mysql2
   rabl
   rails (= 3.1.1)
