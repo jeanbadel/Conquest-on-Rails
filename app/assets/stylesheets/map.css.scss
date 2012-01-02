@@ -42,10 +42,11 @@
 }
 
 #attack_box {
-  width      : 60px;
-  height     : 60px;
-  background : url("/assets/spinner.png") center center no-repeat;
-  position   : relative;
+  text-align: center;
+  position:   relative;
+  height:     34px;
+  width:      50px;
+  color:      #fff;
 
   -webkit-transition: opacity 0.6s;
   -moz-transition:    opacity 0.6s;
@@ -53,36 +54,51 @@
   -ms-transition:     opacity 0.6s;
   transition:         opacity 0.6s;
 
-  .minus, .plus, span {
-    height      : 60px;
-    width       : 20px;
-    text-align  : center;
-    display     : block;
-    z-index     : 99;
-    position    : absolute;
-    cursor      : pointer;
-    color       : #f2f2f2;
-    line-height : 60px;
+  .minus, .plus {
+    border-radius: 10px;
+    line-height:   22px;
+    background:    #333;
+    height:        22px;
+    width:         22px;
 
-    &:hover {
-      text-decoration : none;
-    }
+    font-size: 12px;
+    position:  absolute;
+    z-index:   20;
+    cursor:    pointer;
+    top:       5px;
+
+    -webkit-user-select: none;
+    -moz-user-select:    none;
+    -o-user-select:      none;
+    -ms-user-select:     none;
   }
 
   .minus {
-    text-align : right;
+    left: 0;
   }
 
   .plus {
-    text-align : left;
-    right      : 0;
+    right: 0;
   }
 
-  span {
-    z-index    : 50;
-    width      : 60px;
-    cursor     : default;
-    text-align : center;
+  .counter {
+    text-align: center;
+    position:   absolute;
+    z-index:    30;
+    width:      26px;
+    left:       12px;
+    top:        8px;
+  }
+
+  .middle {
+    border-radius: 25px;
+    line-height:   30px;
+    background:    #333;
+    position:      absolute;
+    z-index:       10;
+    height:        34px;
+    width:         34px;
+    left:          8px;
   }
 }
 

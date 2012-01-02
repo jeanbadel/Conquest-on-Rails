@@ -22,7 +22,7 @@ window.Game = Backbone.Model.extend
 
 
   unselectTerritory: ->
-    @set(selectedTerritory: null)
+    @set(selectedTerritory: null, targetedTerritory: null)
 
 
   targetTerritory: (territory)->
@@ -32,7 +32,7 @@ window.Game = Backbone.Model.extend
 
 
   untargetTerritory: ->
-    @set(targetedTerritory: null)
+    @set(targetedTerritory: null, ongoingAttack: null)
 
 
   attackTerritory: (territory)->
