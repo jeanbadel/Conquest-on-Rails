@@ -5,6 +5,12 @@ window.Game = Backbone.Model.extend
     @bind("change:selectedTerritory", @selectedTerritoryChanged, @)
     @bind("change:targetedTerritory", @targetedTerritoryChanged, @)
 
+    me      = @
+    channel = "games/#{@get("id")}"
+
+    window.juggernaut.subscribe channel, (data)->
+      me[data.eventType](data)
+
 
   currentPlayerChanged: ->
     @get("players").each (player)-> player.set(active: false)
@@ -60,3 +66,20 @@ window.Game = Backbone.Model.extend
   abortOngoingAttack: ->
     @get("ongoingAttack") && @get("ongoingAttack").destroy()
     @set(ongoingAttack: null)
+
+
+  attackOccured: (data)->
+    attacker = @get("territories").get(data.attackerTerritoryId)
+    target   = @get("territories").get(data.targetTerritoryId)
+
+    if data.attackerWon
+      newOwner                    = attacker.get("owner")
+      remainingAttackerUnitsCount = attacker.get("unitsCount") - data.attackersCount
+      remainingTargetUnitsCount   = data.attackersCount - data.attackerLosses
+
+      attacker.set(unitsCount: remainingAttackerUnitsCount)
+      target.set(owner: newOwner, unitsCount: remainingTargetUnitsCount)
+
+    else
+      attacker.set(unitsCount: attacker.get("unitsCount") - data.attackerLosses)
+      target.set(unitsCount: target.get("unitsCount") - data.targetLosses)
