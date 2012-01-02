@@ -1,9 +1,7 @@
 class AttacksController < ApplicationController
   def create
-    game           = current_participation.game
-
-    attackers_count = params[:attackers_count].to_i
     game               = current_participation.game
+    attackers_count    = params[:attackers_count].to_i
     attacker_ownership = current_participation.ownerships.find_by_territory_id(params[:attacker_id])
     target_ownership   = game.ownerships.find_by_territory_id(params[:target_id])
     attack             = attacker_ownership.attack!(target_ownership, attackers_count)

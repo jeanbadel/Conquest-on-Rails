@@ -1,6 +1,6 @@
 window.BadgeView = Backbone.View.extend
-  model:     Territory
-  tagName:   "li"
+  model:   Territory
+  tagName: "li"
 
   events:
     "click" : "handleClick"
@@ -9,8 +9,8 @@ window.BadgeView = Backbone.View.extend
   initialize: ->
     @model.bind("change:unitsCount", @unitsCountChanged, @)
     @model.bind("change:owner",      @ownerChanged,      @)
-    @model.bind("fade",              @fade,             @)
-    @model.bind("unfade",            @unfade,           @)
+    @model.bind("fade",              @fade,              @)
+    @model.bind("unfade",            @unfade,            @)
 
 
   render: ->
