@@ -83,3 +83,8 @@ window.Game = Backbone.Model.extend
     else
       attacker.set(unitsCount: attacker.get("unitsCount") - data.attackerLosses)
       target.set(unitsCount: target.get("unitsCount") - data.targetLosses)
+
+
+Game.DEPLOYMENT = "DEPLOYMENT"
+Game.ATTACK     = "ATTACK"
+Game.MOVE       = "MOVE"

@@ -1,6 +1,7 @@
 jQuery ->
   window.game = new Game
     id:            window.seeds.gameId
+    phase:         window.seeds.phase
     players:       window.seeds.players
     territories:   window.seeds.territories
     currentPlayer: window.seeds.currentPlayer

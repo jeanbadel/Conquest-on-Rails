@@ -15,6 +15,7 @@ class Game < ActiveRecord::Base
   MOVE       = "MOVE"
 
   default_value_for :state, Game::WAITING_FOR_PLAYERS
+  default_value_for :phase, Game::DEPLOYMENT
 
   has_many :ownerships,     dependent: :destroy
   has_many :participations, dependent: :destroy
