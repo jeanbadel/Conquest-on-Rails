@@ -78,6 +78,7 @@ class Game < ActiveRecord::Base
       dispatch_remaining_units!
 
       self.turn                 = 1
+      self.phase                = Game::DEPLOYMENT
       self.state                = Game::RUNNING
       self.turn_finish_at       = TURN_DURATION.from_now
       self.active_participation = participations.find_by_position(1)
@@ -113,6 +114,7 @@ class Game < ActiveRecord::Base
   def next_turn!
     self.turn                 += 1
     self.active_participation  = next_participation
+    self.phase                 = Game::DEPLOYMENT
     save!
   end
 
