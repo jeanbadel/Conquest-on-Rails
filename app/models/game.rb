@@ -83,6 +83,8 @@ class Game < ActiveRecord::Base
       self.turn_finish_at       = TURN_DURATION.from_now
       self.active_participation = participations.find_by_position(1)
       save!
+
+      active_participation.give_reinforcements!
     end
 
     self
@@ -116,6 +118,8 @@ class Game < ActiveRecord::Base
     self.active_participation  = next_participation
     self.phase                 = Game::DEPLOYMENT
     save!
+
+    active_participation.give_reinforcements!
   end
 
 
