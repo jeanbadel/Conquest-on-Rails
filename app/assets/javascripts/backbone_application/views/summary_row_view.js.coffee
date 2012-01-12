@@ -40,7 +40,7 @@ window.SummaryRowView = Backbone.View.extend
   deployedUnitsCountChanged: ->
     unitsCount = @model.get("deployedUnitsCount")
     $td        = @$(".units_count").toggleClass("animated")
-    $span      = $td.find("span")
+    $span      = $td.find(".deployed_units_count")
 
     change = -> $span.text(unitsCount)
     setTimeout(change, 200)

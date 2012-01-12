@@ -25,7 +25,7 @@
     position: relative;
     height:   18px;
 
-    span {
+    span.rotating {
       position:           absolute;
       display:            block;
       -webkit-transition: -webkit-transform 0.4s ease-in;
@@ -42,7 +42,7 @@
   }
 
   td.animated {
-    span {
+    span.rotating {
       -webkit-transform: rotate(360deg);
       -moz-transform:    rotate(360deg);
       -o-transform:      rotate(360deg);
