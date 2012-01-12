@@ -1,14 +1,15 @@
 <script type="text/javascript">
   window.seeds = {}
-  window.seeds.gameId = <%= @game.id %>;
-  window.seeds.phase  = Game.<%= @game.phase %>;
+  window.seeds.gameId  = <%= @game.id %>;
+  window.seeds.phase   = Game.<%= @game.phase %>;
   window.seeds.players = new Players([
     <% @participations.each do |participation| %>
       {
-        id:     <%= participation.id %>,
-        name:   <%= raw(participation.user.name.to_json) %>,
-        color:  <%= raw(participation.color.to_json) %>,
-        active: <%= @game.active_participation_id == participation.id ? true : false %>
+        id:         <%= participation.id %>,
+        name:       <%= raw(participation.user.name.to_json) %>,
+        color:      <%= raw(participation.color.to_json) %>,
+        active:     <%= @game.active_participation_id == participation.id ? true : false %>,
+        unitsCount: <%= participation.units_count %>
       },
     <% end %>
   ]);

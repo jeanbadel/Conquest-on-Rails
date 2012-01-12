@@ -12,6 +12,11 @@ window.Game = Backbone.Model.extend
       me[data.eventType](data)
 
 
+  initialize: (attributes)->
+    currentPlayer = @get("players").find (player)-> player.get("active")
+    @set(currentPlayer: currentPlayer)
+
+
   currentPlayerChanged: ->
     @get("players").each (player)-> player.set(active: false)
     @get("currentPlayer").set(active: true)
