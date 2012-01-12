@@ -3,18 +3,20 @@ window.SummaryRowView = Backbone.View.extend
   tagName: "tr"
 
   initialize: ->
-    @model.bind("change:active",             @activityChanged,         @)
-    @model.bind("change:deployedUnitsCount", @unitsCountChanged,       @)
-    @model.bind("add:territories",           @territoriesCountChanged, @)
-    @model.bind("remove:territories",        @territoriesCountChanged, @)
+    @model.bind("change:active",             @activityChanged,           @)
+    @model.bind("change:deployedUnitsCount", @deployedUnitsCountChanged, @)
+    @model.bind("add:territories",           @territoriesCountChanged,   @)
+    @model.bind("remove:territories",        @territoriesCountChanged,   @)
+    @model.bind("change:unitsCount",         @unitsCountChanged,         @)
 
 
   render: ->
     viewData =
-      name:             @model.get("name")
-      color:            @model.get("color")
-      unitsCount:       @model.get("deployedUnitsCount")
-      territoriesCount: @model.get("territories").length
+      name:               @model.get("name")
+      color:              @model.get("color")
+      unitsCount:         @model.get("unitsCount")
+      deployedUnitsCount: @model.get("deployedUnitsCount")
+      territoriesCount:   @model.get("territories").length
 
     source   = $("#summary-row-view-template").html()
     template = Handlebars.compile(source)
@@ -23,6 +25,8 @@ window.SummaryRowView = Backbone.View.extend
     $(@el)
       .html(content)
       .addClass(@model.get("active") && "current")
+
+    @$(".units_to_deploy").hide() if @model.get("unitsCount") == 0
 
     @
 
@@ -33,7 +37,7 @@ window.SummaryRowView = Backbone.View.extend
       .addClass(@model.get("active") && "current")
 
 
-  unitsCountChanged: ->
+  deployedUnitsCountChanged: ->
     unitsCount = @model.get("deployedUnitsCount")
     $td        = @$(".units_count").toggleClass("animated")
     $span      = $td.find("span")
@@ -49,3 +53,15 @@ window.SummaryRowView = Backbone.View.extend
 
     change = -> $span.text(territoriesCount)
     setTimeout(change, 200)
+
+
+  unitsCountChanged: ->
+    unitsCount = @model.get("unitsCount")
+
+    if 0 < unitsCount
+      @$(".units_count .units_to_deploy")
+        .text("+#{unitsCount}")
+        .show()
+
+    else
+      @$(".units_count .units_to_deploy").hide()

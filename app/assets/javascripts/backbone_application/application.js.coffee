@@ -7,9 +7,7 @@ jQuery ->
 
   mapView                   = new MapView(model: window.game)
   summaryView               = new SummaryView(model: window.game)
-  window.reinforcementsCounterView = new ReinforcementsCounterView(model: window.game)
 
   $("#application")
     .append(mapView.render().el)
-    .append(reinforcementsCounterView.render().el)
     .append(summaryView.render().el)
