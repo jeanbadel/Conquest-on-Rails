@@ -5,16 +5,14 @@ window.Game = Backbone.Model.extend
     @bind("change:selectedTerritory", @selectedTerritoryChanged, @)
     @bind("change:targetedTerritory", @targetedTerritoryChanged, @)
 
+    currentPlayer = @get("players").find (player)-> player.get("active")
+    @set(currentPlayer: currentPlayer)
+
     me      = @
     channel = "games/#{@get("id")}"
 
     window.juggernaut.subscribe channel, (data)->
       me[data.eventType](data)
-
-
-  initialize: (attributes)->
-    currentPlayer = @get("players").find (player)-> player.get("active")
-    @set(currentPlayer: currentPlayer)
 
 
   currentPlayerChanged: ->
