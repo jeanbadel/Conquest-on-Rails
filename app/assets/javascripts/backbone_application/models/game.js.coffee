@@ -47,10 +47,7 @@ window.Game = Backbone.Model.extend
     selectedTerritory = @get("selectedTerritory")
 
     if selectedTerritory
-      neighbours            = selectedTerritory.get("neighbours")
-      targetableTerritories = neighbours.without(myTerritories.models)
-
-      @set(targetableTerritories: new Territories(targetableTerritories))
+      @set(targetableTerritories: new Territories(@targetableTerritories()))
 
     else
       @set(targetableTerritories: new Territories([]))
@@ -86,6 +83,17 @@ window.Game = Backbone.Model.extend
     else
       attacker.set(unitsCount: attacker.get("unitsCount") - data.attackerLosses)
       target.set(unitsCount: target.get("unitsCount") - data.targetLosses)
+
+
+  targetableTerritories: ->
+    selectedTerritory = @get("selectedTerritory")
+    myTerritories     = selectedTerritory.get("owner").get("territories")
+    neighbours        = selectedTerritory.get("neighbours")
+
+    if @get("phase") is Game.MOVE
+      _.intersection(neighbours.models, myTerritories.models)
+    else
+      neighbours.without(myTerritories.models)
 
 
 Game.DEPLOYMENT = "DEPLOYMENT"

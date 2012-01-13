@@ -36,28 +36,37 @@ window.BadgeView = Backbone.View.extend
 
 
   handleClick: ->
+    phase                 = window.game.get("phase")
     clickedTerritory      = @model
     selectedTerritory     = window.game.get("selectedTerritory")
     targetableTerritories = window.game.get("targetableTerritories")
     targetedTerritory     = window.game.get("targetedTerritory")
 
-    if not selectedTerritory
+    if phase is Game.DEPLOYMENT
       if clickedTerritory.get("owner") is window.me and window.me.get("active")
-        window.game.selectTerritory(clickedTerritory)
+        clickedTerritory.deploy(1)
 
     else
-      if clickedTerritory is selectedTerritory
-        window.game.unselectTerritory()
-
-      else if clickedTerritory is targetedTerritory
-        window.game.attackTerritory(clickedTerritory)
-
-      else if targetableTerritories.include(clickedTerritory)
-        window.game.targetTerritory(clickedTerritory)
-
-      else
+      if not selectedTerritory
         if clickedTerritory.get("owner") is window.me and window.me.get("active")
           window.game.selectTerritory(clickedTerritory)
+
+      else
+        if clickedTerritory is selectedTerritory
+          window.game.unselectTerritory()
+
+        else if clickedTerritory is targetedTerritory
+          if phase is Game.ATTACK
+            window.game.attackTerritory(clickedTerritory)
+          else if phase is Game.MOVE
+            window.game.moveToTerritory(clickedTerritory)
+
+        else if targetableTerritories.include(clickedTerritory)
+          window.game.targetTerritory(clickedTerritory)
+
+        else
+          if clickedTerritory.get("owner") is window.me and window.me.get("active")
+            window.game.selectTerritory(clickedTerritory)
 
 
   fade: ->
