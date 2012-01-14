@@ -123,6 +123,14 @@ class Game < ActiveRecord::Base
   end
 
 
+  def next_phase!
+    if phase == Game::DEPLOYMENT
+      self.phase = Game::ATTACK
+      save!
+    end
+  end
+
+
   # Number of free slots.
   def missing_participations_count
     MAXIMUM_PARTICIPATIONS_COUNT - participations_count

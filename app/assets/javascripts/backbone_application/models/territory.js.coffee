@@ -16,8 +16,5 @@ window.Territory = Backbone.RelationalModel.extend
 
 
   deploy: (count)->
-    ownerUnitsCount = @get("owner").get("unitsCount")
-
-    if 0 < ownerUnitsCount
-      @set(unitsCount: @get("unitsCount") + count)
-      @get("owner").set(unitsCount: ownerUnitsCount - count)
+    deployment = new Deployment(territory: @, unitsCount: count)
+    deployment.execute()

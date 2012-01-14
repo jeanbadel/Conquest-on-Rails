@@ -85,6 +85,20 @@ window.Game = Backbone.Model.extend
       target.set(unitsCount: target.get("unitsCount") - data.targetLosses)
 
 
+  deploymentOccured: (data)->
+    territory  = @get("territories").get(data.targetTerritoryId)
+    owner      = territory.get("owner")
+    unitsCount = data.unitsCount
+
+    return if owner is window.me
+
+    newTerritoryUnitsCount = territory.get("unitsCount") + unitsCount
+    territory.set(unitsCount: newTerritoryUnitsCount)
+
+    newOwnerUnitsCount = owner.get("unitsCount") - unitsCount
+    owner.set(unitsCount: newOwnerUnitsCount)
+
+
   targetableTerritories: ->
     selectedTerritory = @get("selectedTerritory")
     myTerritories     = selectedTerritory.get("owner").get("territories")
