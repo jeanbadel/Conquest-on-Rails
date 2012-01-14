@@ -90,13 +90,14 @@ window.Game = Backbone.Model.extend
     owner      = territory.get("owner")
     unitsCount = data.unitsCount
 
-    return if owner is window.me
+    @set(phase: data.phase)
 
-    newTerritoryUnitsCount = territory.get("unitsCount") + unitsCount
-    territory.set(unitsCount: newTerritoryUnitsCount)
+    if owner isnt window.me
+      newTerritoryUnitsCount = territory.get("unitsCount") + unitsCount
+      territory.set(unitsCount: newTerritoryUnitsCount)
 
-    newOwnerUnitsCount = owner.get("unitsCount") - unitsCount
-    owner.set(unitsCount: newOwnerUnitsCount)
+      newOwnerUnitsCount = owner.get("unitsCount") - unitsCount
+      owner.set(unitsCount: newOwnerUnitsCount)
 
 
   targetableTerritories: ->

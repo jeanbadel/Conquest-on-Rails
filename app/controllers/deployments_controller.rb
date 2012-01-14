@@ -7,6 +7,7 @@ class DeploymentsController < ApplicationController
     Juggernaut.publish(
       "games/#{ownership.game.id}",
       eventType:         "deploymentOccured",
+      phase:             deployment.game.phase,
       unitsCount:        deployment.units_count,
       targetTerritoryId: deployment.territory.id
     )
