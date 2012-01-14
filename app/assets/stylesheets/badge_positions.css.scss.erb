@@ -1,0 +1,6 @@
+<% Territory.all.each do |territory| %>
+#badge_<%= territory.id %> {
+  top:  <%= territory.badge_offset_y - 34/2 %>px;
+  left: <%= territory.badge_offset_x - 34/2 %>px;
+}
+<% end %>
