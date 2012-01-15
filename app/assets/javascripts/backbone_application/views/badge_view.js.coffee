@@ -14,11 +14,16 @@ window.BadgeView = Backbone.View.extend
 
 
   render: ->
+    domId   = "badge_" + @model.get("id")
+    color   = @model.get("owner").get("color")
+    $span   = $("<span />", text: @model.get("unitsCount"))
+    $badge  = $("<div />", color: color, class: "badge").append($span)
+    $circle = $("<div />", class: "selection_circle")
+
     $(@el)
-      .attr
-        id:    "badge_" + @model.get("id")
-        color: @model.get("owner").get("color")
-      .append($("<span />", text: @model.get("unitsCount")))
+      .attr(id: domId)
+      .append($badge)
+      .append($circle)
 
     @
 
@@ -32,7 +37,7 @@ window.BadgeView = Backbone.View.extend
 
 
   ownerChanged: ->
-    $(@el).attr(color: @model.get("owner").get("color"))
+    @$(".badge").attr(color: @model.get("owner").get("color"))
 
 
   handleClick: ->
@@ -70,8 +75,8 @@ window.BadgeView = Backbone.View.extend
 
 
   fade: ->
-    $(@el).addClass("faded")
+    @$(".badge").addClass("faded")
 
 
   unfade: ->
-    $(@el).removeClass("faded half-faded")
+    @$(".badge").removeClass("faded")
