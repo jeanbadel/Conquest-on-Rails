@@ -7,10 +7,11 @@ window.BadgeView = Backbone.View.extend
 
 
   initialize: ->
-    @model.bind("change:unitsCount", @unitsCountChanged, @)
-    @model.bind("change:owner",      @ownerChanged,      @)
-    @model.bind("fade",              @fade,              @)
-    @model.bind("unfade",            @unfade,            @)
+    @model.bind("change:unitsCount",      @unitsCountChanged,      @)
+    @model.bind("change:owner",           @ownerChanged,           @)
+    @model.bind("fade",                   @fade,                   @)
+    @model.bind("unfade",                 @unfade,                 @)
+    @model.bind("change:selectionCircle", @selectionCircleChanged, @)
 
 
   render: ->
@@ -26,6 +27,17 @@ window.BadgeView = Backbone.View.extend
       .append($circle)
 
     @
+
+
+  selectionCircleChanged: ->
+    if @model.get("selectionCircle")
+      @$(".selection_circle")
+        .addClass("animated")
+        .attr("circle", @model.get("selectionCircle"))
+    else
+      @$(".selection_circle")
+        .removeClass("animated")
+        .attr("circle", null)
 
 
   unitsCountChanged: ->
@@ -75,8 +87,8 @@ window.BadgeView = Backbone.View.extend
 
 
   fade: ->
-    @$(".badge").addClass("faded")
+    # @$(".badge").addClass("faded")
 
 
   unfade: ->
-    @$(".badge").removeClass("faded")
+    # @$(".badge").removeClass("faded")

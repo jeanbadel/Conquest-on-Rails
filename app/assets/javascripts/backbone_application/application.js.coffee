@@ -11,3 +11,5 @@ jQuery ->
   $("#application")
     .append(mapView.render().el)
     .append(summaryView.render().el)
+
+  game.trigger("change:phase")

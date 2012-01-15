@@ -43,7 +43,8 @@
 
 #attack_box {
   text-align: center;
-  position:   relative;
+  position:   absolute;
+  z-index:    120;
   height:     34px;
   width:      50px;
   color:      #fff;

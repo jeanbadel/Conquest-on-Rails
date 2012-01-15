@@ -15,11 +15,12 @@
     .selection_circle.animated {
       -webkit-animation: bouncing 0.85s infinite ease-in;
     }
-    .selection_circle.ally {
-      background-color: green;
+
+    .selection_circle[circle=ally] {
+      background-color: royalblue;
     }
 
-    .selection_circle.enemy {
+    .selection_circle[circle=enemy] {
       background-color: darkred;
     }
 
