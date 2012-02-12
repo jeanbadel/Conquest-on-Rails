@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
-gem "rails", "3.1.1"
-gem "mysql2"
+gem "rails", "3.2.1"
+gem "sqlite3"
 
 # Template engine.
 gem "haml"
@@ -55,6 +55,7 @@ gem "jquery-rails"
 # gem "ruby-debug19", :require => "ruby-debug"
 
 group :development, :test do
+  gem "foreman"
   gem "awesome_print"
   gem "rspec-rails"
   gem "cucumber-rails"
