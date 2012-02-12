@@ -78,6 +78,9 @@ GEM
       factory_girl (~> 2.5.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
+    foreman (0.30.1)
+      term-ansicolor (~> 1.0.5)
+      thor (>= 0.13.6)
     gherkin (2.7.7)
       json (>= 1.4.6)
     haml (3.1.4)
@@ -214,6 +217,7 @@ DEPENDENCIES
   default_value_for
   factory_girl
   factory_girl_rails
+  foreman
   haml
   jquery-rails
   juggernaut
