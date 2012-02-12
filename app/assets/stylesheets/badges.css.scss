@@ -13,7 +13,10 @@
     }
 
     .selection_circle.animated {
+      animation:         bouncing 0.85s infinite ease-in;
       -webkit-animation: bouncing 0.85s infinite ease-in;
+      -moz-animation:    bouncing 0.85s infinite ease-in;
+      -ms-animation:     bouncing 0.85s infinite ease-in;
     }
 
     .selection_circle[circle=ally] {
@@ -136,6 +139,19 @@
 
 }
 
+@keyframes bouncing {
+  0% {
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(0.98);
+  }
+}
+
 @-webkit-keyframes bouncing {
   0% {
     -webkit-transform: scale(0.98);
@@ -146,5 +162,31 @@
 
   100% {
     -webkit-transform: scale(0.98);
+  }
+}
+
+@-moz-keyframes bouncing {
+  0% {
+    -moz-transform: scale(0.98);
+  }
+  50% {
+    -moz-transform: scale(1.15);
+  }
+
+  100% {
+    -moz-transform: scale(0.98);
+  }
+}
+
+@-ms-keyframes bouncing {
+  0% {
+    -ms-transform: scale(0.98);
+  }
+  50% {
+    -ms-transform: scale(1.15);
+  }
+
+  100% {
+    -ms-transform: scale(0.98);
   }
 }
