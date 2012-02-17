@@ -1,6 +1,7 @@
 window.MapView = Backbone.View.extend
-  id:    "map"
-  model: Game
+  id:       "map"
+  model:    Game
+  template: JST["map"]
 
   initialize: ->
     @model.bind("change:ongoingAttack",         @ongoingAttackChanged, @)
@@ -8,9 +9,7 @@ window.MapView = Backbone.View.extend
 
 
   render: ->
-    source   = $("#map-view-template").html()
-    template = Handlebars.compile(source)
-    content  = template()
+    content = @template()
 
     $(@el).html(content)
     $map  = @$("map")

@@ -1,6 +1,7 @@
 window.SummaryRowView = Backbone.View.extend
   model:   Player
   tagName: "tr"
+  template: JST["summary_row"]
 
   initialize: ->
     @model.bind("change:active",             @activityChanged,           @)
@@ -18,9 +19,7 @@ window.SummaryRowView = Backbone.View.extend
       deployedUnitsCount: @model.get("deployedUnitsCount")
       territoriesCount:   @model.get("territories").length
 
-    source   = $("#summary-row-view-template").html()
-    template = Handlebars.compile(source)
-    content  = template(viewData)
+    content = @template(viewData)
 
     $(@el)
       .html(content)

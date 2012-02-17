@@ -3,41 +3,9 @@
   %head
     %title= @page_title || t('title')
     = stylesheet_link_tag "application"
-    = javascript_include_tag "application", "backbone_stuff"
+    = javascript_include_tag "application"
     = csrf_meta_tags
 
   %body
     = render "application/top_bar"
     = yield
-
-    %script#map-view-template{ type: "text/x-handlebars-template" }
-      = image_tag "map.png", usemap: "#territories", alt: ""
-      %map{ name: "territories" }
-      %ul.badges
-
-
-    %script#summary-view-template{ type: "text/x-handlebars-template" }
-      %thead
-        %tr
-          %th.player_name= t('game.player_name')
-          %th= t('game.territories_count')
-          %th= t('game.units_count')
-      %tbody
-
-
-    %script#summary-row-view-template{ type: "text/x-handlebars-template" }
-      %td{ color: "{{color}}" }
-        %span {{name}}
-      %td.count.territories_count
-        %span.rotating {{territoriesCount}}
-      %td.count.units_count
-        %span.rotating.deployed_units_count {{deployedUnitsCount}}
-        %span.units_to_deploy +{{unitsCount}}
-
-
-    %script#attack-box-view-template{ type: "text/x-handlebars-template" }
-      .spinner
-        .minus −
-        .middle
-        .counter {{attackersCount}}
-        .plus +

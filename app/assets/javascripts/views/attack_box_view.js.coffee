@@ -1,6 +1,7 @@
 window.AttackBoxView = Backbone.View.extend
-  model: Attack
-  id:    "attack_box"
+  model:    Attack
+  id:       "attack_box"
+  template: JST["attack_box"]
 
   events:
     "click .minus" : "decrementAttackersCount"
@@ -14,10 +15,8 @@ window.AttackBoxView = Backbone.View.extend
 
 
   render: ->
-    source   = $("#attack-box-view-template").html()
-    template = Handlebars.compile(source)
     viewData = attackersCount: @model.get("attackersCount")
-    content  = template(viewData)
+    content  = @template(viewData)
 
     $(@el)
       .addClass("hidden")

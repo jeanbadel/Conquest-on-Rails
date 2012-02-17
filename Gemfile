@@ -33,6 +33,8 @@ gem 'juggernaut'
 gem 'rabl'
 gem 'yajl-ruby'
 
+# Integrate Backbone.
+gem 'backbone-on-rails'
 
 group :assets do
   gem 'sass-rails'
@@ -40,12 +42,15 @@ group :assets do
   gem 'uglifier'
   gem 'handlebars_assets'
   gem 'jquery-rails'
+  gem 'anjlab-bootstrap-rails', require: 'bootstrap-rails'
 end
-
 
 group :development, :test do
   gem 'foreman'
   gem 'awesome_print'
+end
+
+group :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
   gem 'database_cleaner'

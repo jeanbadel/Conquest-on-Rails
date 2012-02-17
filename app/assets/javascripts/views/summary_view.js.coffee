@@ -3,11 +3,10 @@ window.SummaryView = Backbone.View.extend
   tagName:   "table"
   id:        "players"
   className: "zebra-striped"
+  template:  JST["summary"]
 
   render: ->
-    source   = $("#summary-view-template").html()
-    template = Handlebars.compile(source)
-    content  = template()
+    content = @template()
 
     $(@el).html(content)
     $tbody = @$("tbody")
