@@ -4,6 +4,7 @@ window.GameRouter = Backbone.Router.extend
 
 
   show: (gameId)->
+    console.log "Game!", gameId
     window.game = new Game
       id:          window.seeds.gameId
       phase:       window.seeds.phase

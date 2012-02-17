@@ -6,7 +6,7 @@ window.ConquestOnRails =
 
   init: ->
     window.juggernaut ||= new Juggernaut
-    new window.GameRouter
+    window.gameRouter   = new window.GameRouter
     Backbone.history.start(pushState: true)
 
 
