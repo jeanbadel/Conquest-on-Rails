@@ -51,8 +51,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'watchr'
   gem 'rspec-rails'
-  gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'factory_girl_rails'
