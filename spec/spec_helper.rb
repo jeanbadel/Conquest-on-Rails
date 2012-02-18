@@ -3,15 +3,14 @@ require 'spork'
 require 'database_cleaner'
 
 Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However,
-  # if you change any configuration or code from libraries loaded here, you'll
-  # need to restart spork for it take effect.
-
+  ENV["RAILS_ENV"] ||= 'test'
+  require File.expand_path("../../config/environment", __FILE__)
+  require 'rspec/rails'
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
-
+  ActiveRecord::Schema.verbose = false
+  load "#{Rails.root}/db/schema.rb"
 end
 
 # --- Instructions ---
@@ -72,15 +71,15 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  
+
   config.before :suite do
     DatabaseCleaner.strategy = :truncation, { :except => %w( territories ) }
   end
-  
+
   config.before :each do
     DatabaseCleaner.start
   end
-  
+
   config.after :each do
     DatabaseCleaner.clean
   end

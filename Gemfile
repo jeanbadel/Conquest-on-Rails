@@ -7,7 +7,7 @@ gem 'sqlite3'
 gem 'haml'
 
 # Simplify the creation of forms.
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+# gem 'simple_form', '~> 2.0' #, :git => 'git://github.com/plataformatec/simple_form.git'
 
 # Add sugar to ActiveRecord API.
 gem 'squeel'
