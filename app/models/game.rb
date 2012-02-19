@@ -138,6 +138,6 @@ class Game < ActiveRecord::Base
 
 
   def full?
-    participations_count == Game::MAXIMUM_PARTICIPATIONS_COUNT
+    participations.count == Game::MAXIMUM_PARTICIPATIONS_COUNT
   end
 end

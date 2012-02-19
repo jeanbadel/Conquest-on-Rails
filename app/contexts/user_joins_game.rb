@@ -11,7 +11,14 @@ class UserJoinsGame
     raise GameIsRunning   if game.state == Game::RUNNING
     raise GameIsFullError if game.full?
 
-    game.users << user
+    game.participations.create(user: user, position: position).tap do
+      game.start if game.full?
+    end
+  end
+
+
+  def position
+    game.participations.count || 0
   end
 
 
