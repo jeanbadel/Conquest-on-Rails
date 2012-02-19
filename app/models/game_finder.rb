@@ -8,7 +8,12 @@ class GameFinder
 
 
   def search
-    available_games.sample
+    available_games_for_user.sample
+  end
+
+
+  def find
+    search || Game.create
   end
 
 

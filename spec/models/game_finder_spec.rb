@@ -25,6 +25,10 @@ describe GameFinder do
     it "no game should be found" do
       finder.search.should be_nil
     end
+
+    it "a brand new game should be created" do
+      finder.find.should be_a(Game)
+    end
   end
 
 
